@@ -1,10 +1,10 @@
 module github.com/9seconds/mtg/v2
 
-go 1.23.4
+go 1.23.4-alpine3.21
 
 require (
 	github.com/OneOfOne/xxhash v1.2.8
-	github.com/alecthomas/kong v1.6.0
+	github.com/alecthomas/kong v1.6.1
 	github.com/alecthomas/units v0.0.0-20240927000941-0f3dac36c52b
 	github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
 	github.com/babolivier/go-doh-client v0.0.0-20201028162107-a76cff4cb8b6
@@ -22,9 +22,9 @@ require (
 	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/stretchr/testify v1.10.0
 	github.com/tylertreat/BoomFilters v0.0.0-20210315201527-1a82519a3e43
-	golang.org/x/crypto v0.31.0
+	golang.org/x/crypto v0.32.0
 	golang.org/x/net v0.33.0 // indirect
-	golang.org/x/sys v0.28.0
+	golang.org/x/sys v0.29.0
 	google.golang.org/protobuf v1.36.1 // indirect
 )
 
