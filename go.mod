@@ -1,6 +1,6 @@
 module github.com/9seconds/mtg/v2
 
-go 1.23.4-alpine3.21
+go 1.23.4
 
 require (
 	github.com/OneOfOne/xxhash v1.2.8
