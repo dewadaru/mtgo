@@ -1,6 +1,6 @@
 module github.com/9seconds/mtg/v2
 
-go 1.23.4
+go 1.23.6
 
 require (
 	github.com/OneOfOne/xxhash v1.2.8
@@ -24,7 +24,7 @@ require (
 	github.com/tylertreat/BoomFilters v0.0.0-20210315201527-1a82519a3e43
 	golang.org/x/crypto v0.32.0
 	golang.org/x/net v0.33.0 // indirect
-	golang.org/x/sys v0.29.0
+	golang.org/x/sys v0.30.0
 	google.golang.org/protobuf v1.36.4 // indirect
 )
 
@@ -51,7 +51,7 @@ require (
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.16.0 // indirect
-	golang.org/x/sync v0.10.0 // indirect
+	golang.org/x/sync v0.11.0 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
