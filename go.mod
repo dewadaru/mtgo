@@ -12,9 +12,9 @@ require (
 	github.com/gotd/td v0.34.0
 	github.com/jarcoal/httpmock v1.0.8
 	github.com/mccutchen/go-httpbin v1.1.1
-	github.com/panjf2000/ants/v2 v2.11.1
+	github.com/panjf2000/ants/v2 v2.11.2
 	github.com/pelletier/go-toml v1.9.5
-	github.com/prometheus/client_golang v1.21.0
+	github.com/prometheus/client_golang v1.21.1
 	github.com/prometheus/common v0.62.0 // indirect
 	github.com/prometheus/procfs v0.15.1 // indirect
 	github.com/rs/zerolog v1.33.0
@@ -22,9 +22,9 @@ require (
 	github.com/stretchr/objx v0.5.2 // indirect
 	github.com/stretchr/testify v1.10.0
 	github.com/tylertreat/BoomFilters v0.0.0-20210315201527-1a82519a3e43
-	golang.org/x/crypto v0.35.0
+	golang.org/x/crypto v0.36.0
 	golang.org/x/net v0.33.0 // indirect
-	golang.org/x/sys v0.30.0
+	golang.org/x/sys v0.31.0
 	google.golang.org/protobuf v1.36.5 // indirect
 )
 
@@ -51,7 +51,7 @@ require (
 	go.uber.org/atomic v1.7.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	go.uber.org/zap v1.16.0 // indirect
-	golang.org/x/sync v0.11.0 // indirect
+	golang.org/x/sync v0.12.0 // indirect
 	golang.org/x/xerrors v0.0.0-20200804184101-5ec99f83aff1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
