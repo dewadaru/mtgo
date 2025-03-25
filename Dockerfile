@@ -23,6 +23,9 @@ RUN set -x \
 
 FROM scratch
 
+# Expose default port (can be overridden in config)
+EXPOSE 3128
+
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
   CMD nc -z localhost 3128 || exit 1
