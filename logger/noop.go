@@ -1,6 +1,6 @@
 package logger
 
-import "github.com/dewadaru/mtg/mtglib"
+import "github.com/9seconds/mtg/v2/mtglib"
 
 type noopLogger struct{}
 

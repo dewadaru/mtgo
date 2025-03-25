@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dewadaru/mtg/mtglib"
-	"github.com/dewadaru/mtg/mtglib/internal/faketls"
+	"github.com/9seconds/mtg/v2/mtglib"
+	"github.com/9seconds/mtg/v2/mtglib/internal/faketls"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )

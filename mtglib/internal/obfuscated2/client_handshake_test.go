@@ -4,8 +4,8 @@ import (
 	"bytes"
 	"testing"
 
-	"github.com/dewadaru/mtg/internal/testlib"
-	"github.com/dewadaru/mtg/mtglib/internal/obfuscated2"
+	"github.com/9seconds/mtg/v2/internal/testlib"
+	"github.com/9seconds/mtg/v2/mtglib/internal/obfuscated2"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"

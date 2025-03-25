@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/dewadaru/mtg/internal/config"
+	"github.com/9seconds/mtg/v2/internal/config"
 )
 
 type SimpleRun struct {

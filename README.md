@@ -5,7 +5,7 @@ Highly-opinionated (ex-bullshit-free) MTPROTO proxy for
 
 [![CI](https://github.com/9seconds/mtg/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/9seconds/mtg/actions/workflows/ci.yaml)
 [![codecov](https://codecov.io/gh/9seconds/mtg/branch/master/graph/badge.svg?token=JfdDyGVpT4)](https://codecov.io/gh/9seconds/mtg)
-[![Go Reference](https://pkg.go.dev/badge/github.com/9seconds/mtg.svg)](https://pkg.go.dev/github.com/dewadaru/mtg)
+[![Go Reference](https://pkg.go.dev/badge/github.com/9seconds/mtg.svg)](https://pkg.go.dev/github.com/9seconds/mtg/v2)
 
 **If you use v1.0 or upgrade broke you proxy, please read the chapter
 [Version 2](#version-2)**
@@ -190,7 +190,7 @@ surprises. Always choose some version tag.
 Also, if you have `go` installed, you can always download this tool with `go get`:
 
 ```console
-go install github.com/dewadaru/mtg@latest
+go install github.com/9seconds/mtg/v2@latest
 ```
 
 #### Build from sources
@@ -247,6 +247,7 @@ For example, you've bought a VPS from [Digital
 Ocean](https://www.digitalocean.com/). Then it might be a good idea to
 generate a secret for _digitalocean.com_ then.
 
+
 ### Simple run mode
 
 mtg supports 2 modes: simple and normal. Simple mode allows starting
@@ -282,7 +283,7 @@ Flags:
 So, if you want to startup a proxy with CLI only, you can do something like
 
 ```console
-mtg simple-run -n 1.1.1.1 -t 30s -a 512kib 127.0.0.1:3128 7hBO-dCS4EBzenlKbdLFxyNnb29nbGUuY29t
+$ mtg simple-run -n 1.1.1.1 -t 30s -a 512kib 127.0.0.1:3128 7hBO-dCS4EBzenlKbdLFxyNnb29nbGUuY29t
 ```
 
 The rest of the configuration will be taken from default values. But
@@ -337,7 +338,7 @@ $ sudo systemctl start mtg
 or you can run a docker image
 
 ```console
-docker run -d -v $PWD/config.toml:/config.toml -p 443:3128 --name mtg-proxy --restart=unless-stopped nineseconds/mtg:2
+docker run -d -v $PWD/config.toml:config.toml -p 443:3128 --name mtg-proxy --restart=unless-stopped nineseconds/mtg:2
 ```
 
 where _443_ is a host port (a port you want to connect to from a
@@ -369,7 +370,7 @@ $ mtg access /etc/mtg.toml
 or if you are using docker:
 
 ```console
-docker exec mtg-proxy /mtg access /config.toml
+$ docker exec mtg-proxy /mtg access /config.toml
 ```
 
 ## Metrics

@@ -3,7 +3,7 @@ package faketls_test
 import (
 	"testing"
 
-	"github.com/dewadaru/mtg/mtglib/internal/faketls"
+	"github.com/9seconds/mtg/v2/mtglib/internal/faketls"
 	"github.com/stretchr/testify/require"
 )
 

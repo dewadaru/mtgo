@@ -4,8 +4,8 @@ import (
 	"io"
 	"testing"
 
-	"github.com/dewadaru/mtg/internal/testlib"
-	"github.com/dewadaru/mtg/logger"
+	"github.com/9seconds/mtg/v2/internal/testlib"
+	"github.com/9seconds/mtg/v2/logger"
 	"github.com/stretchr/testify/suite"
 )
 

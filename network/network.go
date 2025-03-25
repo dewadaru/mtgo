@@ -9,8 +9,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/dewadaru/mtg/essentials"
-	"github.com/dewadaru/mtg/mtglib"
+	"github.com/9seconds/mtg/v2/essentials"
+	"github.com/9seconds/mtg/v2/mtglib"
 )
 
 type networkHTTPTransport struct {

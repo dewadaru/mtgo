@@ -5,7 +5,7 @@ import (
 	"net"
 	"testing"
 
-	"github.com/dewadaru/mtg/internal/testlib"
+	"github.com/9seconds/mtg/v2/internal/testlib"
 	"github.com/stretchr/testify/suite"
 )
 

@@ -5,8 +5,8 @@ import (
 	"math/rand"
 	"runtime"
 
+	"github.com/9seconds/mtg/v2/mtglib"
 	"github.com/OneOfOne/xxhash"
-	"github.com/dewadaru/mtg/mtglib"
 )
 
 // EventStream is a default implementation of the [mtglib.EventStream]

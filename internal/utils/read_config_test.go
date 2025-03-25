@@ -4,7 +4,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/dewadaru/mtg/internal/utils"
+	"github.com/9seconds/mtg/v2/internal/utils"
 	"github.com/stretchr/testify/suite"
 )
 

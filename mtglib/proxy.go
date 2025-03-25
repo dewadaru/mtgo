@@ -9,12 +9,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/dewadaru/mtg/essentials"
-	"github.com/dewadaru/mtg/mtglib/internal/faketls"
-	"github.com/dewadaru/mtg/mtglib/internal/faketls/record"
-	"github.com/dewadaru/mtg/mtglib/internal/obfuscated2"
-	"github.com/dewadaru/mtg/mtglib/internal/relay"
-	"github.com/dewadaru/mtg/mtglib/internal/telegram"
+	"github.com/9seconds/mtg/v2/essentials"
+	"github.com/9seconds/mtg/v2/mtglib/internal/faketls"
+	"github.com/9seconds/mtg/v2/mtglib/internal/faketls/record"
+	"github.com/9seconds/mtg/v2/mtglib/internal/obfuscated2"
+	"github.com/9seconds/mtg/v2/mtglib/internal/relay"
+	"github.com/9seconds/mtg/v2/mtglib/internal/telegram"
 	"github.com/panjf2000/ants/v2"
 )
 

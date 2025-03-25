@@ -12,8 +12,8 @@ import (
 	"math/rand"
 	"time"
 
+	"github.com/9seconds/mtg/v2/internal/cli"
 	"github.com/alecthomas/kong"
-	"github.com/dewadaru/mtg/internal/cli"
 )
 
 func main() {

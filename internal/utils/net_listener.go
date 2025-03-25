@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net"
 
-	"github.com/dewadaru/mtg/network"
+	"github.com/9seconds/mtg/v2/network"
 )
 
 type Listener struct {
