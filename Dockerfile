@@ -23,6 +23,10 @@ RUN set -x \
 
 FROM scratch
 
+# Health check
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
+  CMD nc -z localhost 3128 || exit 1
+
 ENTRYPOINT ["/mtg"]
 CMD ["run", "/config.toml"]
 
