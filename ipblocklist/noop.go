@@ -4,7 +4,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/dewadaru/mtg/mtglib"
+	"github.com/dewadaru/mtg/v2/mtglib"
 )
 
 type noop struct{}

@@ -8,10 +8,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dewadaru/mtg/events"
-	"github.com/dewadaru/mtg/logger"
-	"github.com/dewadaru/mtg/mtglib"
-	"github.com/dewadaru/mtg/stats"
+	"github.com/dewadaru/mtg/v2/events"
+	"github.com/dewadaru/mtg/v2/logger"
+	"github.com/dewadaru/mtg/v2/mtglib"
+	"github.com/dewadaru/mtg/v2/stats"
 	statsd "github.com/smira/go-statsd"
 	"github.com/stretchr/testify/suite"
 )

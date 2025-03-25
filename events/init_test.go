@@ -1,7 +1,7 @@
 package events_test
 
 import (
-	"github.com/dewadaru/mtg/mtglib"
+	"github.com/dewadaru/mtg/v2/mtglib"
 	"github.com/stretchr/testify/mock"
 )
 

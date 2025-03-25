@@ -3,7 +3,7 @@ package cli
 import (
 	"fmt"
 
-	"github.com/dewadaru/mtg/internal/utils"
+	"github.com/dewadaru/mtg/v2/internal/utils"
 )
 
 type Run struct {

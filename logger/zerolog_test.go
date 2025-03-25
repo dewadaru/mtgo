@@ -8,8 +8,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dewadaru/mtg/logger"
-	"github.com/dewadaru/mtg/mtglib"
+	"github.com/dewadaru/mtg/v2/logger"
+	"github.com/dewadaru/mtg/v2/mtglib"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"

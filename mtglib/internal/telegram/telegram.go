@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/dewadaru/mtg/essentials"
+	"github.com/dewadaru/mtg/v2/essentials"
 )
 
 type Telegram struct {

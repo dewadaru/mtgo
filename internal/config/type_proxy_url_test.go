@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/dewadaru/mtg/internal/config"
+	"github.com/dewadaru/mtg/v2/internal/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )

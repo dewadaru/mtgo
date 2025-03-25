@@ -3,7 +3,7 @@ package events
 import (
 	"sync"
 
-	"github.com/dewadaru/mtg/mtglib"
+	"github.com/dewadaru/mtg/v2/mtglib"
 )
 
 type multiObserver struct {

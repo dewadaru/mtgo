@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/dewadaru/mtg/network"
+	"github.com/dewadaru/mtg/v2/network"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 )

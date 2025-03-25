@@ -6,7 +6,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/dewadaru/mtg/essentials"
+	"github.com/dewadaru/mtg/v2/essentials"
 )
 
 type defaultDialer struct {

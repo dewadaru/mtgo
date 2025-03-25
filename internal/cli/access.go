@@ -13,10 +13,10 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/dewadaru/mtg/essentials"
-	"github.com/dewadaru/mtg/internal/config"
-	"github.com/dewadaru/mtg/internal/utils"
-	"github.com/dewadaru/mtg/mtglib"
+	"github.com/dewadaru/mtg/v2/essentials"
+	"github.com/dewadaru/mtg/v2/internal/config"
+	"github.com/dewadaru/mtg/v2/internal/utils"
+	"github.com/dewadaru/mtg/v2/mtglib"
 )
 
 type accessResponse struct {

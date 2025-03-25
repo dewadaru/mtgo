@@ -1,4 +1,4 @@
-module github.com/dewadaru/mtg
+module github.com/dewadaru/mtg/v2
 
 go 1.24.1
 

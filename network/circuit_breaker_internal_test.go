@@ -9,7 +9,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dewadaru/mtg/internal/testlib"
+	"github.com/dewadaru/mtg/v2/internal/testlib"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 )

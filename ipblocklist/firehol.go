@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/dewadaru/mtg/ipblocklist/files"
-	"github.com/dewadaru/mtg/mtglib"
+	"github.com/dewadaru/mtg/v2/ipblocklist/files"
+	"github.com/dewadaru/mtg/v2/mtglib"
 	"github.com/panjf2000/ants/v2"
 	"github.com/yl2chen/cidranger"
 )

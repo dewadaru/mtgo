@@ -6,8 +6,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/dewadaru/mtg/events"
-	"github.com/dewadaru/mtg/mtglib"
+	"github.com/dewadaru/mtg/v2/events"
+	"github.com/dewadaru/mtg/v2/mtglib"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
 )

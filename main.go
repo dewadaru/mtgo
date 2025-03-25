@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/alecthomas/kong"
-	"github.com/dewadaru/mtg/internal/cli"
+	"github.com/dewadaru/mtg/v2/internal/cli"
 )
 
 func main() {

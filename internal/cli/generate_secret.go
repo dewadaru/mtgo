@@ -3,7 +3,7 @@ package cli
 import (
 	"fmt"
 
-	"github.com/dewadaru/mtg/mtglib"
+	"github.com/dewadaru/mtg/v2/mtglib"
 )
 
 type GenerateSecret struct {

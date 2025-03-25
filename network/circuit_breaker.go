@@ -5,7 +5,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/dewadaru/mtg/essentials"
+	"github.com/dewadaru/mtg/v2/essentials"
 )
 
 const (

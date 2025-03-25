@@ -1,6 +1,6 @@
 package antireplay
 
-import "github.com/dewadaru/mtg/mtglib"
+import "github.com/dewadaru/mtg/v2/mtglib"
 
 type noop struct{}
 
