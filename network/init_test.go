@@ -11,7 +11,7 @@ import (
 	socks5 "github.com/armon/go-socks5"
 	"github.com/dewadaru/mtg/v2/essentials"
 	"github.com/dewadaru/mtg/v2/network"
-	"github.com/mccutchen/go-httpbin/httpbin"
+	"github.com/mccutchen/go-httpbin/v2/httpbin"
 	"github.com/stretchr/testify/mock"
 )
 
