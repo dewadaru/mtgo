@@ -3,7 +3,7 @@ package obfuscated2
 import (
 	"crypto/cipher"
 
-	"github.com/9seconds/mtg/v2/essentials"
+	"github.com/dewadaru/mtg/v2/essentials"
 )
 
 type Conn struct {

@@ -23,7 +23,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/9seconds/mtg/v2/essentials"
+	"github.com/dewadaru/mtg/v2/essentials"
 )
 
 var (

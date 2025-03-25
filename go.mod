@@ -1,4 +1,4 @@
-module github.com/9seconds/mtg/v2
+module github.com/dewadaru/mtg/v2
 
 go 1.18
 

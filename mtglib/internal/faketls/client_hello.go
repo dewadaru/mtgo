@@ -8,7 +8,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/9seconds/mtg/v2/mtglib/internal/faketls/record"
+	"github.com/dewadaru/mtg/v2/mtglib/internal/faketls/record"
 )
 
 type ClientHello struct {
