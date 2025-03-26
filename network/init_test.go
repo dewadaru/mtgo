@@ -36,7 +36,11 @@ type HTTPServerTestSuite struct {
 }
 
 func (suite *HTTPServerTestSuite) SetupSuite() {
-	suite.httpServer = httptest.NewServer(httpbin.NewHTTPBin().Handler())
+	// Initialize the HTTPBin server
+	httpBin := httpbin.New()
+
+	// Start the test server
+	suite.httpServer = httptest.NewServer(httpBin.Handler())
 }
 
 func (suite *HTTPServerTestSuite) TearDownSuite() {
