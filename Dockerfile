@@ -29,3 +29,7 @@ CMD ["run", "/config.toml"]
 COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 COPY --from=build /app/mtg /mtg
 COPY --from=build /app/example.config.toml /config.toml
+
+# Add healthcheck
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD ["/mtg", "healthcheck"]
