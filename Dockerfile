@@ -2,7 +2,7 @@
 # 20250326
 # BUILD STAGE 
 
-FROM golang:1.24.1-alpine3.21 AS build
+FROM golang:1.24.1-alpine3.21 AS builder
 
 # Install build dependencies
 RUN apk --no-cache add \
@@ -31,20 +31,13 @@ RUN make -j$(nproc) static
 FROM scratch
 
 # Copy SSL certificates
-COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
 
 # Copy the application binary
-COPY --from=build /app/mtg /mtg
+COPY --from=builder /app/mtg /mtg
 
 # Copy the configuration file
-COPY --from=build /app/example.config.toml /config.toml
-
-# Expose default port (can be overridden in config)
-#EXPOSE 3128
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s \
-    CMD ["/mtg", "health"]
+COPY --from=builder /app/example.config.toml /config.toml
 
 # Set entrypoint and default command
 ENTRYPOINT ["/mtg"]
