@@ -39,6 +39,13 @@ COPY --from=builder /app/mtg /mtg
 # Copy the configuration file
 COPY --from=builder /app/example.config.toml /config.toml
 
+# Expose default port
+EXPOSE 3128
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s \
+    CMD ["/bin/sh", "-c", "nc -z localhost 3128"]
+
 # Set entrypoint and default command
 ENTRYPOINT ["/mtg"]
 CMD ["run", "/config.toml"]

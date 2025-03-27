@@ -46,7 +46,7 @@ EXPOSE 3128
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s \
-    CMD ["/usr/local/bin/mtg", "health"]
+    CMD ["/bin/sh", "-c", "nc -z localhost 3128"]
 
 # Entrypoint
 ENTRYPOINT ["/usr/local/bin/mtg"]
