@@ -15,6 +15,10 @@ RUN apk --no-cache add \
 # Set working directory
 WORKDIR /app
 
+# Copy dependency files first for better layer caching
+COPY go.mod go.sum ./
+RUN go mod download
+
 # Copy source code
 COPY . .
 
@@ -36,7 +40,11 @@ COPY --from=build /app/mtg /mtg
 COPY --from=build /app/example.config.toml /config.toml
 
 # Expose default port (can be overridden in config)
-EXPOSE 3128
+#EXPOSE 3128
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s \
+    CMD ["/mtg", "health"]
 
 # Set entrypoint and default command
 ENTRYPOINT ["/mtg"]

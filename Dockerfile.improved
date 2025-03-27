@@ -1,0 +1,55 @@
+# Build stage
+FROM golang:1.21-alpine3.19 AS builder
+
+# Install build dependencies
+RUN apk --no-cache add \
+    bash \
+    ca-certificates \
+    curl \
+    git \
+    make
+
+# Set working directory
+WORKDIR /app
+
+# Copy dependency files first for better layer caching
+COPY go.mod go.sum ./
+RUN go mod download
+
+# Copy source code
+COPY . .
+
+# Build static binary
+RUN make -j$(nproc) static
+
+# Final stage
+FROM scratch
+
+# Metadata labels
+LABEL maintainer="Your Name <your.email@example.com>"
+LABEL org.opencontainers.image.source="https://github.com/your/repo"
+
+# Copy SSL certificates
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+
+# Copy application binary
+COPY --from=builder /app/mtg /usr/local/bin/mtg
+
+# Copy configuration file
+COPY --from=builder /app/example.config.toml /etc/mtg/config.toml
+
+# Create non-root user
+USER 1000:1000
+
+# Expose default port
+EXPOSE 3128
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s \
+    CMD ["/usr/local/bin/mtg", "health"]
+
+# Entrypoint
+ENTRYPOINT ["/usr/local/bin/mtg"]
+
+# Default command
+CMD ["run", "/etc/mtg/config.toml"]
