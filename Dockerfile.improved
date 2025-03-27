@@ -23,7 +23,10 @@ COPY . .
 RUN make -j$(nproc) static
 
 # Final stage
-FROM scratch
+FROM alpine:3.21
+
+# Install netcat for healthcheck
+RUN apk --no-cache add netcat-openbsd
 
 # Metadata labels
 LABEL maintainer="Your Name <your.email@example.com>"
@@ -45,8 +48,9 @@ USER 1000:1000
 EXPOSE 3128
 
 # Health check
+# nc is provided by netcat-openbsd package
 HEALTHCHECK --interval=30s --timeout=3s \
-    CMD ["/bin/sh", "-c", "nc -z localhost 3128"]
+    CMD nc -z localhost 3128
 
 # Entrypoint
 ENTRYPOINT ["/usr/local/bin/mtg"]
