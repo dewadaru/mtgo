@@ -28,7 +28,10 @@ RUN make -j$(nproc) static
 ###############################################################################
 # PACKAGE STAGE
 
-FROM scratch
+FROM alpine:3.21
+
+# Install netcat for healthcheck
+RUN apk --no-cache add netcat-openbsd
 
 # Copy SSL certificates
 COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
@@ -43,8 +46,9 @@ COPY --from=builder /app/example.config.toml /config.toml
 EXPOSE 3128
 
 # Health check
+# nc is provided by netcat-openbsd package
 HEALTHCHECK --interval=30s --timeout=3s \
-    CMD ["/bin/sh", "-c", "nc -z localhost 3128"]
+    CMD nc -z localhost 3128
 
 # Set entrypoint and default command
 ENTRYPOINT ["/mtg"]
