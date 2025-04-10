@@ -13,14 +13,14 @@ require (
 	github.com/mccutchen/go-httpbin/v2 v2.18.0
 	github.com/panjf2000/ants/v2 v2.11.2
 	github.com/pelletier/go-toml v1.9.5
-	github.com/prometheus/client_golang v1.21.1
+	github.com/prometheus/client_golang v1.22.0
 	github.com/rs/zerolog v1.34.0
 	github.com/smira/go-statsd v1.3.4
 	github.com/stretchr/testify v1.10.0
 	github.com/txthinking/socks5 v0.0.0-20230325130024-4230056ae301
 	github.com/tylertreat/BoomFilters v0.0.0-20210315201527-1a82519a3e43
 	github.com/yl2chen/cidranger v1.0.2
-	golang.org/x/crypto v0.36.0
+	golang.org/x/crypto v0.37.0
 	golang.org/x/sys v0.32.0
 )
 
@@ -64,7 +64,7 @@ require (
 	golang.org/x/mod v0.24.0 // indirect
 	golang.org/x/net v0.37.0 // indirect
 	golang.org/x/sync v0.13.0 // indirect
-	golang.org/x/text v0.23.0 // indirect
+	golang.org/x/text v0.24.0 // indirect
 	golang.org/x/tools v0.31.0 // indirect
 	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
