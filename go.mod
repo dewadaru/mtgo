@@ -1,6 +1,6 @@
 module github.com/dewadaru/mtg/v2
 
-go 1.24.2
+go 1.24.3
 
 require (
 	github.com/OneOfOne/xxhash v1.2.8
