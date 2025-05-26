@@ -18,7 +18,7 @@ require (
 	github.com/smira/go-statsd v1.3.4
 	github.com/stretchr/testify v1.10.0
 	github.com/txthinking/socks5 v0.0.0-20230325130024-4230056ae301
-	github.com/tylertreat/BoomFilters v0.0.0-20210315201527-1a82519a3e43
+	github.com/tylertreat/BoomFilters v0.0.0-20250522162035-f45446a1cfb3
 	github.com/yl2chen/cidranger v1.0.2
 	golang.org/x/crypto v0.38.0
 	golang.org/x/sys v0.33.0
