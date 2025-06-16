@@ -10,7 +10,7 @@ require (
 	github.com/babolivier/go-doh-client v0.0.0-20201028162107-a76cff4cb8b6
 	github.com/gotd/td v0.124.0
 	github.com/jarcoal/httpmock v1.4.0
-	github.com/mccutchen/go-httpbin/v2 v2.18.1
+	github.com/mccutchen/go-httpbin/v2 v2.18.3
 	github.com/panjf2000/ants/v2 v2.11.3
 	github.com/pelletier/go-toml v1.9.5
 	github.com/prometheus/client_golang v1.22.0
