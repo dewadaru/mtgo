@@ -1,6 +1,6 @@
 module github.com/dewadaru/mtg/v2
 
-go 1.24.4
+go 1.24.5
 
 require (
 	github.com/OneOfOne/xxhash v1.2.8
@@ -8,7 +8,7 @@ require (
 	github.com/alecthomas/units v0.0.0-20240927000941-0f3dac36c52b
 	github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
 	github.com/babolivier/go-doh-client v0.0.0-20201028162107-a76cff4cb8b6
-	github.com/gotd/td v0.127.0
+	github.com/gotd/td v0.128.0
 	github.com/jarcoal/httpmock v1.4.0
 	github.com/mccutchen/go-httpbin/v2 v2.18.3
 	github.com/panjf2000/ants/v2 v2.11.3

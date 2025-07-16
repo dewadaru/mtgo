@@ -2,7 +2,7 @@
 # 20250326
 # BUILD STAGE 
 
-FROM golang:1.24.4-alpine3.22 AS builder
+FROM golang:1.24.5-alpine3.22 AS builder
 
 # Install build dependencies
 RUN apk --no-cache add \
