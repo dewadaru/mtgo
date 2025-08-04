@@ -13,11 +13,11 @@ require (
 	github.com/mccutchen/go-httpbin/v2 v2.18.3
 	github.com/panjf2000/ants/v2 v2.11.3
 	github.com/pelletier/go-toml v1.9.5
-	github.com/prometheus/client_golang v1.22.0
+	github.com/prometheus/client_golang v1.23.0
 	github.com/rs/zerolog v1.34.0
 	github.com/smira/go-statsd v1.3.4
 	github.com/stretchr/testify v1.10.0
-	github.com/txthinking/socks5 v0.0.0-20230325130024-4230056ae301
+	github.com/txthinking/socks5 v0.0.0-20250803014457-d3594b14cf12
 	github.com/tylertreat/BoomFilters v0.0.0-20250630160909-db6545748bc4
 	github.com/yl2chen/cidranger v1.0.2
 	golang.org/x/crypto v0.40.0
