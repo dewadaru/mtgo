@@ -1,6 +1,6 @@
 module github.com/dewadaru/mtg/v2
 
-go 1.24.5
+go 1.25.0
 
 require (
 	github.com/OneOfOne/xxhash v1.2.8
@@ -9,7 +9,7 @@ require (
 	github.com/armon/go-socks5 v0.0.0-20160902184237-e75332964ef5
 	github.com/babolivier/go-doh-client v0.0.0-20201028162107-a76cff4cb8b6
 	github.com/gotd/td v0.130.0
-	github.com/jarcoal/httpmock v1.4.0
+	github.com/jarcoal/httpmock v1.4.1
 	github.com/mccutchen/go-httpbin/v2 v2.18.3
 	github.com/panjf2000/ants/v2 v2.11.3
 	github.com/pelletier/go-toml v1.9.5
@@ -60,13 +60,13 @@ require (
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
-	golang.org/x/exp v0.0.0-20250813145105-42675adae3e6 // indirect
+	golang.org/x/exp v0.0.0-20250819193227-8b4c13bb791b // indirect
 	golang.org/x/mod v0.27.0 // indirect
 	golang.org/x/net v0.43.0 // indirect
 	golang.org/x/sync v0.16.0 // indirect
 	golang.org/x/text v0.28.0 // indirect
 	golang.org/x/tools v0.36.0 // indirect
-	google.golang.org/protobuf v1.36.7 // indirect
+	google.golang.org/protobuf v1.36.8 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	rsc.io/qr v0.2.0 // indirect
