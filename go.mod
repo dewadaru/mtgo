@@ -16,7 +16,7 @@ require (
 	github.com/prometheus/client_golang v1.23.0
 	github.com/rs/zerolog v1.34.0
 	github.com/smira/go-statsd v1.3.4
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.0
 	github.com/txthinking/socks5 v0.0.0-20250803014457-d3594b14cf12
 	github.com/tylertreat/BoomFilters v0.0.0-20250630160909-db6545748bc4
 	github.com/yl2chen/cidranger v1.0.2
