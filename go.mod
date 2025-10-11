@@ -17,7 +17,7 @@ require (
 	github.com/rs/zerolog v1.34.0
 	github.com/smira/go-statsd v1.3.4
 	github.com/stretchr/testify v1.11.1
-	github.com/txthinking/socks5 v0.0.0-20250803014457-d3594b14cf12
+	github.com/txthinking/socks5 v0.0.0-20251011041537-5c31f201a10e
 	github.com/tylertreat/BoomFilters v0.0.0-20251001182300-5b3723cc64ae
 	github.com/yl2chen/cidranger v1.0.2
 	golang.org/x/crypto v0.43.0
@@ -62,7 +62,7 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
-	golang.org/x/exp v0.0.0-20251002181428-27f1f14c8bb9 // indirect
+	golang.org/x/exp v0.0.0-20251009144603-d2f985daa21b // indirect
 	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/net v0.46.0 // indirect
 	golang.org/x/sync v0.17.0 // indirect
