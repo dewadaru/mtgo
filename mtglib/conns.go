@@ -4,10 +4,19 @@ import (
 	"bytes"
 	"context"
 	"io"
+	"net"
 	"sync"
 
 	"github.com/dewadaru/mtg/v2/essentials"
 )
+
+const bufferSize = 32 * 1024 // 32KB, tune as needed
+
+var bufferPool = sync.Pool{
+	New: func() interface{} {
+		return make([]byte, bufferSize)
+	},
+}
 
 type connTraffic struct {
 	essentials.Conn
@@ -67,3 +76,12 @@ func newConnRewind(conn essentials.Conn) *connRewind {
 
 	return rv
 }
+
+// Copy copies data from src to dst using a pooled buffer.
+func Copy(dst net.Conn, src net.Conn) (written int64, err error) {
+	buf := bufferPool.Get().([]byte)
+	defer bufferPool.Put(buf)
+	return io.CopyBuffer(dst, src, buf)
+}
+
+// Optionally, add a context-aware copy for cancellation support.
