@@ -6,10 +6,10 @@ require (
 	github.com/OneOfOne/xxhash v1.2.8
 	github.com/alecthomas/kong v1.12.1
 	github.com/alecthomas/units v0.0.0-20240927000941-0f3dac36c52b
-	github.com/babolivier/go-doh-client v0.0.0-20201028162107-a76cff4cb8b6
 	github.com/gotd/td v0.132.0
 	github.com/jarcoal/httpmock v1.4.1
 	github.com/mccutchen/go-httpbin/v2 v2.18.3
+	github.com/miekg/dns v1.1.68
 	github.com/panjf2000/ants/v2 v2.11.3
 	github.com/pelletier/go-toml v1.9.5
 	github.com/prometheus/client_golang v1.23.2
