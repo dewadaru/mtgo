@@ -1,7 +1,6 @@
 package network
 
 import (
-	"context"
 	"fmt"
 	"net"
 	"net/http"
@@ -100,30 +99,4 @@ func newDNSResolver(hostname string, httpClient *http.Client) *dnsResolver {
 		},
 		cache: map[string]dnsResolverCacheEntry{},
 	}
-}
-
-type cachedResult struct {
-	ipAddrs   []net.IPAddr
-	timestamp time.Time
-}
-
-type Resolver struct {
-	cache    sync.Map
-	ttl      time.Duration
-	resolver *net.Resolver
-}
-
-func (r *Resolver) LookupIP(host string) ([]net.IPAddr, error) {
-	if val, ok := r.cache.Load(host); ok {
-		res := val.(cachedResult)
-		if time.Since(res.timestamp) < r.ttl {
-			return res.ipAddrs, nil
-		}
-		r.cache.Delete(host)
-	}
-	addrs, err := r.resolver.LookupIPAddr(context.Background(), host)
-	if err == nil {
-		r.cache.Store(host, cachedResult{ipAddrs: addrs, timestamp: time.Now()})
-	}
-	return addrs, err
 }
