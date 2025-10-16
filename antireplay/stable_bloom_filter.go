@@ -3,7 +3,7 @@ package antireplay
 import (
 	"sync"
 
-	"github.com/OneOfOne/xxhash"
+	"github.com/cespare/xxhash/v2"
 	"github.com/dewadaru/mtg/v2/mtglib"
 	boom "github.com/tylertreat/BoomFilters"
 )
@@ -43,7 +43,7 @@ func NewStableBloomFilter(byteSize uint, errorRate float64) mtglib.AntiReplayCac
 	}
 
 	sf := boom.NewDefaultStableBloomFilter(byteSize*8, errorRate) //nolint: gomnd
-	sf.SetHash(xxhash.New64())
+	sf.SetHash(xxhash.New())
 
 	return &stableBloomFilter{
 		filter: *sf,

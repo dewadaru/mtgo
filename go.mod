@@ -3,9 +3,9 @@ module github.com/dewadaru/mtg/v2
 go 1.25.2
 
 require (
-	github.com/OneOfOne/xxhash v1.2.8
 	github.com/alecthomas/kong v1.12.1
 	github.com/alecthomas/units v0.0.0-20240927000941-0f3dac36c52b
+	github.com/cespare/xxhash/v2 v2.3.0
 	github.com/gotd/td v0.132.0
 	github.com/jarcoal/httpmock v1.4.1
 	github.com/mccutchen/go-httpbin/v2 v2.18.3
@@ -26,7 +26,6 @@ require (
 require (
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
-	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/coder/websocket v1.8.14 // indirect
 	github.com/d4l3k/messagediff v1.2.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
