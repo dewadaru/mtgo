@@ -1,6 +1,6 @@
 module github.com/dewadaru/mtg/v2
 
-go 1.25.2
+go 1.25.3
 
 require (
 	github.com/alecthomas/kong v1.12.1
