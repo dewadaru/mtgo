@@ -2,7 +2,7 @@ ROOT_DIR     := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 IMAGE_NAME   := mtg
 APP_NAME     := $(IMAGE_NAME)
 
-GOLANGCI_LINT_VERSION := v1.48.0
+GOLANGCI_LINT_VERSION := v1.54.2
 
 VERSION            := $(shell git describe --exact-match HEAD 2>/dev/null || git describe --tags --always)
 COMMON_BUILD_FLAGS := -trimpath -mod=readonly -ldflags="-extldflags '-static' -s -w -X 'main.version=$(VERSION)'"
@@ -95,7 +95,7 @@ install-tools-goreleaser: .bin
 
 .PHONY: update-deps
 update-deps:
-	@go get -u && go mod tidy -go=1.18
+	@go get -u && go mod tidy -go=1.25.3
 
 .PHONY: fuzz
 fuzz: fuzz-ClientHello fuzz-ServerGenerateHandshakeFrame fuzz-ClientHandshake fuzz-ServerReceive fuzz-ServerSend
