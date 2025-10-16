@@ -5,6 +5,10 @@ package network
 
 import "syscall"
 
-func setSocketReuseAddrPort(conn syscall.RawConn) error {
+// setSocketReuseAddrPort sets socket reuse options for Windows.
+// Note: Windows implementation is currently a stub as SO_REUSEADDR/SO_REUSEPORT
+// have different semantics on Windows compared to Unix systems.
+// This function accepts the conn parameter to maintain API compatibility.
+func setSocketReuseAddrPort(_ syscall.RawConn) error {
 	return nil
 }
