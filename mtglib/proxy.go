@@ -44,8 +44,7 @@ func (p *Proxy) DomainFrontingAddress() string {
 	return net.JoinHostPort(p.secret.Host, strconv.Itoa(p.domainFrontingPort))
 }
 
-// ServeConn serves a connection. We do not check IP blocklist and concurrency
-// limit here.
+// ServeConn serves a connection. We do not check IP blocklist and concurrency limit here.
 func (p *Proxy) ServeConn(conn essentials.Conn) {
 	p.streamWaitGroup.Add(1)
 	defer p.streamWaitGroup.Done()
@@ -53,6 +52,7 @@ func (p *Proxy) ServeConn(conn essentials.Conn) {
 	ctx := newStreamContext(p.ctx, p.logger, conn)
 	defer ctx.Close()
 
+	// Ensure context is closed when done
 	go func() {
 		<-ctx.Done()
 		ctx.Close()
@@ -66,19 +66,20 @@ func (p *Proxy) ServeConn(conn essentials.Conn) {
 		ctx.logger.Info("Stream has been finished")
 	}()
 
+	// FakeTLS handshake
 	if !p.doFakeTLSHandshake(ctx) {
 		return
 	}
 
+	// Obfuscated2 handshake
 	if err := p.doObfuscated2Handshake(ctx); err != nil {
-		p.logger.InfoError("obfuscated2 handshake is failed", err)
-
+		p.logger.InfoError("obfuscated2 handshake failed", err)
 		return
 	}
 
+	// Telegram call
 	if err := p.doTelegramCall(ctx); err != nil {
 		p.logger.WarningError("cannot dial to telegram", err)
-
 		return
 	}
 
@@ -113,7 +114,6 @@ func (p *Proxy) Serve(listener net.Listener) error {
 			conn.Close()
 			logger.Info("ip was rejected by allowlist")
 			p.eventStream.Send(p.ctx, NewEventIPAllowlisted(ipAddr))
-
 			continue
 		}
 
@@ -121,12 +121,10 @@ func (p *Proxy) Serve(listener net.Listener) error {
 			conn.Close()
 			logger.Info("ip was blacklisted")
 			p.eventStream.Send(p.ctx, NewEventIPBlocklisted(ipAddr))
-
 			continue
 		}
 
 		err = p.workerPool.Invoke(conn)
-
 		switch {
 		case err == nil:
 		case errors.Is(err, ants.ErrPoolClosed):
@@ -138,13 +136,11 @@ func (p *Proxy) Serve(listener net.Listener) error {
 	}
 }
 
-// Shutdown 'gracefully' shutdowns all connections. Please remember that it
-// does not close an underlying listener.
+// Shutdown gracefully shuts down all connections. Does not close the underlying listener.
 func (p *Proxy) Shutdown() {
 	p.ctxCancel()
 	p.streamWaitGroup.Wait()
 	p.workerPool.Release()
-
 	p.allowlist.Shutdown()
 	p.blocklist.Shutdown()
 }
@@ -158,7 +154,6 @@ func (p *Proxy) doFakeTLSHandshake(ctx *streamContext) bool {
 	if err := rec.Read(rewind); err != nil {
 		p.logger.InfoError("cannot read client hello", err)
 		p.doDomainFronting(ctx, rewind)
-
 		return false
 	}
 
@@ -166,7 +161,6 @@ func (p *Proxy) doFakeTLSHandshake(ctx *streamContext) bool {
 	if err != nil {
 		p.logger.InfoError("cannot parse client hello", err)
 		p.doDomainFronting(ctx, rewind)
-
 		return false
 	}
 
@@ -176,7 +170,6 @@ func (p *Proxy) doFakeTLSHandshake(ctx *streamContext) bool {
 			BindStr("hello-time", hello.Time.String()).
 			InfoError("invalid faketls client hello", err)
 		p.doDomainFronting(ctx, rewind)
-
 		return false
 	}
 
@@ -184,13 +177,11 @@ func (p *Proxy) doFakeTLSHandshake(ctx *streamContext) bool {
 		p.logger.Warning("replay attack has been detected!")
 		p.eventStream.Send(p.ctx, NewEventReplayAttack(ctx.streamID))
 		p.doDomainFronting(ctx, rewind)
-
 		return false
 	}
 
 	if err := faketls.SendWelcomePacket(rewind, p.secret.Key[:], hello); err != nil {
 		p.logger.InfoError("cannot send welcome packet", err)
-
 		return false
 	}
 
@@ -224,7 +215,6 @@ func (p *Proxy) doTelegramCall(ctx *streamContext) error {
 	if p.allowFallbackOnUnknownDC && !p.telegram.IsKnownDC(dc) {
 		dc = p.telegram.GetFallbackDC()
 		ctx.logger = ctx.logger.BindInt("fallback_dc", dc)
-
 		ctx.logger.Warning("unknown DC, fallbacks")
 	}
 
@@ -236,7 +226,6 @@ func (p *Proxy) doTelegramCall(ctx *streamContext) error {
 	encryptor, decryptor, err := obfuscated2.ServerHandshake(conn)
 	if err != nil {
 		conn.Close()
-
 		return fmt.Errorf("cannot perform obfuscated2 handshake: %w", err)
 	}
 
@@ -267,7 +256,6 @@ func (p *Proxy) doDomainFronting(ctx *streamContext, conn *connRewind) {
 	frontConn, err := p.network.DialContext(ctx, "tcp", p.DomainFrontingAddress())
 	if err != nil {
 		p.logger.WarningError("cannot dial to the fronting domain", err)
-
 		return
 	}
 

@@ -5,8 +5,8 @@ import (
 	"math/rand"
 	"runtime"
 
+	"github.com/cespare/xxhash/v2"
 	"github.com/dewadaru/mtg/v2/mtglib"
-	"github.com/OneOfOne/xxhash"
 )
 
 // EventStream is a default implementation of the [mtglib.EventStream]
@@ -27,12 +27,11 @@ type EventStream struct {
 // Send starts delivering of the message to observer with respect to a
 // given context If context is closed, message could be not delivered.
 func (e EventStream) Send(ctx context.Context, evt mtglib.Event) {
-	var chanNo uint32
-
+	var chanNo uint64
 	if streamID := evt.StreamID(); streamID != "" {
-		chanNo = xxhash.ChecksumString32(streamID)
+		chanNo = xxhash.Sum64String(streamID)
 	} else {
-		chanNo = rand.Uint32()
+		chanNo = rand.Uint64()
 	}
 
 	select {
@@ -66,7 +65,6 @@ func NewEventStream(observerFactories []ObserverFactory) EventStream {
 
 	for i := 0; i < runtime.NumCPU(); i++ {
 		rv.chans[i] = make(chan mtglib.Event, 1)
-
 		if len(observerFactories) == 1 {
 			go eventStreamProcessor(ctx, rv.chans[i], observerFactories[0]())
 		} else {

@@ -1,0 +1,77 @@
+###############################################################################
+# BUILD STAGE
+# Use a specific version of the golang image based on Alpine
+FROM golang:1.24.1-alpine3.21 AS builder
+
+# Install only necessary build dependencies
+# ca-certificates for potential HTTPS calls during build/download
+# make for running the Makefile target
+RUN apk --no-cache add \
+    ca-certificates \
+    make
+
+# Set working directory
+WORKDIR /app
+
+# Copy dependency files first for better layer caching
+COPY go.mod go.sum ./
+# Download dependencies
+RUN go mod download
+
+# Copy the entire source code
+# .dockerignore should prevent unnecessary files from being copied
+COPY . .
+
+# Build the static, optimized binary using the Makefile target
+# The Makefile already includes -s -w flags for smaller size
+# Using nproc for parallel build jobs
+RUN make -j$(nproc) static
+
+###############################################################################
+# FINAL STAGE
+# Use the same Alpine version as the builder for consistency
+FROM alpine:3.21
+
+# Add OCI labels for image metadata
+# You might want to ARG these values in a real CI/CD pipeline
+ARG VERSION=unknown
+ARG CREATED=$(date -u +'%Y-%m-%dT%H:%M:%SZ')
+ARG SOURCE_REVISION=$(git rev-parse HEAD 2>/dev/null || echo "unknown")
+LABEL org.opencontainers.image.title="mtg" \
+      org.opencontainers.image.description="MTProto proxy server" \
+      org.opencontainers.image.url="https://github.com/dewadaru/mtg" \
+      org.opencontainers.image.source="https://github.com/dewadaru/mtg.git" \
+      org.opencontainers.image.version="${VERSION}" \
+      org.opencontainers.image.created="${CREATED}" \
+      org.opencontainers.image.revision="${SOURCE_REVISION}" \
+      org.opencontainers.image.vendor="dewadaru" \
+      org.opencontainers.image.licenses="MIT"
+
+# Install netcat for healthcheck and copy CA certificates
+RUN apk --no-cache add netcat-openbsd
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+
+# Create a non-root user and group
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup
+
+# Set working directory
+WORKDIR /app
+
+# Copy the application binary and config file from the builder stage
+# Set ownership to the non-root user
+COPY --from=builder --chown=appuser:appgroup /app/mtg /app/mtg
+COPY --from=builder --chown=appuser:appgroup /app/example.config.toml /app/config.toml
+
+# Switch to the non-root user
+USER appuser
+
+# Expose the default port the application listens on
+EXPOSE 3128
+
+# Health check to verify the service is up
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD nc -z localhost 3128
+
+# Set entrypoint and default command
+ENTRYPOINT ["/app/mtg"]
+CMD ["run", "/app/config.toml"]

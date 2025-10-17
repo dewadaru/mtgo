@@ -10,9 +10,9 @@ import (
 
 	"github.com/dewadaru/mtg/v2/essentials"
 	"github.com/dewadaru/mtg/v2/network"
-	socks5 "github.com/armon/go-socks5"
-	"github.com/mccutchen/go-httpbin/httpbin"
+	"github.com/mccutchen/go-httpbin/v2/httpbin"
 	"github.com/stretchr/testify/mock"
+	"github.com/txthinking/socks5"
 )
 
 type DialerMock struct {
@@ -36,7 +36,11 @@ type HTTPServerTestSuite struct {
 }
 
 func (suite *HTTPServerTestSuite) SetupSuite() {
-	suite.httpServer = httptest.NewServer(httpbin.NewHTTPBin().Handler())
+	// Initialize the HTTPBin server
+	httpBin := httpbin.New()
+
+	// Start the test server
+	suite.httpServer = httptest.NewServer(httpBin.Handler())
 }
 
 func (suite *HTTPServerTestSuite) TearDownSuite() {
@@ -68,13 +72,20 @@ type Socks5ServerTestSuite struct {
 
 func (suite *Socks5ServerTestSuite) SetupSuite() {
 	suite.socks5Listener, _ = net.Listen("tcp", "127.0.0.1:0")
-	suite.socks5Server, _ = socks5.New(&socks5.Config{
-		Credentials: socks5.StaticCredentials{
-			"user": "password",
-		},
-	})
+	
+	// Create server with username/password authentication using txthinking/socks5
+	// Timeouts are in seconds (int), not time.Duration
+	suite.socks5Server, _ = socks5.NewClassicServer(
+		suite.socks5Listener.Addr().String(),
+		"127.0.0.1",
+		"user",
+		"password",
+		60, // TCP timeout in seconds
+		60, // UDP timeout in seconds
+	)
 
-	go suite.socks5Server.Serve(suite.socks5Listener) //nolint: errcheck
+	// Pass nil to use default handler (standard SOCKS5 behavior)
+	go suite.socks5Server.ListenAndServe(nil) //nolint: errcheck
 }
 
 func (suite *Socks5ServerTestSuite) TearDownSuite() {

@@ -12,17 +12,22 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/dewadaru/mtg/v2/internal/cli"
 	"github.com/alecthomas/kong"
+	"github.com/dewadaru/mtg/v2/internal/cli"
 )
 
+func initRandom() {
+	rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
+}
+
 func main() {
-	rand.Seed(time.Now().UTC().UnixNano())
+	initRandom()
 
 	cli := &cli.CLI{}
+	currentVersion := getVersion()
 	ctx := kong.Parse(cli, kong.Vars{
-		"version": getVersion(),
+		"version": currentVersion,
 	})
 
-	ctx.FatalIfErrorf(ctx.Run(cli, version))
+	ctx.FatalIfErrorf(ctx.Run(cli, currentVersion))
 }
