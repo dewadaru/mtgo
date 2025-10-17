@@ -7,8 +7,6 @@
 # use. You do not need to enumerate all of them. In other words, each
 # option here has a default value. If you comment a key-value pair, it
 # should not make any effect.
-#
-# stats is the only exception.
 
 # Debug starts application in debug mode. It starts to be quite verbose
 # in output. Actually, the idea is that you run it in debug mode only if
@@ -196,27 +194,3 @@ urls = [
 
 ]
 update-each = "24h"
-
-# statsd statistics integration.
-[stats.statsd]
-# enabled/disabled
-enabled = false
-# host:port for UDP endpoint of statsd
-address = "127.0.0.1:8888"
-# prefix of metric for statsd
-metric-prefix = "mtg"
-# tag format to use
-# supported values are 'datadog', 'influxdb' and 'graphite'
-# default format is graphite.
-tag-format = "datadog"
-
-# prometheus metrics integration.
-[stats.prometheus]
-# enabled/disabled
-enabled = true
-# host:port where to start http server for endpoint
-bind-to = "127.0.0.1:3129"
-# prefix of http path
-http-path = "/"
-# prefix for metrics for prometheus
-metric-prefix = "mtg"

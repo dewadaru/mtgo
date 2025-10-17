@@ -48,22 +48,6 @@ type Config struct {
 		DOHIP   TypeIP         `json:"dohIp"`
 		Proxies []TypeProxyURL `json:"proxies"`
 	} `json:"network"`
-	Stats struct {
-		StatsD struct {
-			Optional
-
-			Address      TypeHostPort        `json:"address"`
-			MetricPrefix TypeMetricPrefix    `json:"metricPrefix"`
-			TagFormat    TypeStatsdTagFormat `json:"tagFormat"`
-		} `json:"statsd"`
-		Prometheus struct {
-			Optional
-
-			BindTo       TypeHostPort     `json:"bindTo"`
-			HTTPPath     TypeHTTPPath     `json:"httpPath"`
-			MetricPrefix TypeMetricPrefix `json:"metricPrefix"`
-		} `json:"prometheus"`
-	} `json:"stats"`
 }
 
 func (c *Config) Validate() error {

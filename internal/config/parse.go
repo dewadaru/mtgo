@@ -45,20 +45,6 @@ type tomlConfig struct {
 		DOHIP   string   `toml:"doh-ip" json:"dohIp,omitempty"`
 		Proxies []string `toml:"proxies" json:"proxies,omitempty"`
 	} `toml:"network" json:"network,omitempty"`
-	Stats struct {
-		StatsD struct {
-			Enabled      bool   `toml:"enabled" json:"enabled,omitempty"`
-			Address      string `toml:"address" json:"address,omitempty"`
-			MetricPrefix string `toml:"metric-prefix" json:"metricPrefix,omitempty"`
-			TagFormat    string `toml:"tag-format" json:"tagFormat,omitempty"`
-		} `toml:"statsd" json:"statsd,omitempty"`
-		Prometheus struct {
-			Enabled      bool   `toml:"enabled" json:"enabled,omitempty"`
-			BindTo       string `toml:"bind-to" json:"bindTo,omitempty"`
-			HTTPPath     string `toml:"http-path" json:"httpPath,omitempty"`
-			MetricPrefix string `toml:"metric-prefix" json:"metricPrefix,omitempty"`
-		} `toml:"prometheus" json:"prometheus,omitempty"`
-	} `toml:"stats" json:"stats,omitempty"`
 }
 
 func Parse(rawData []byte) (*Config, error) {

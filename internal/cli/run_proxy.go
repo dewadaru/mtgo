@@ -16,7 +16,6 @@ import (
 	"github.com/dewadaru/mtg/v2/logger"
 	"github.com/dewadaru/mtg/v2/mtglib"
 	"github.com/dewadaru/mtg/v2/network"
-	"github.com/dewadaru/mtg/v2/stats"
 	"github.com/rs/zerolog"
 	"github.com/yl2chen/cidranger"
 )
@@ -164,41 +163,6 @@ func makeIPAllowlist(conf config.ListConfig,
 }
 
 func makeEventStream(conf *config.Config, logger mtglib.Logger) (mtglib.EventStream, error) {
-	factories := make([]events.ObserverFactory, 0, 2) //nolint: gomnd
-
-	if conf.Stats.StatsD.Enabled.Get(false) {
-		statsdFactory, err := stats.NewStatsd(
-			conf.Stats.StatsD.Address.Get(""),
-			logger.Named("statsd"),
-			conf.Stats.StatsD.MetricPrefix.Get(stats.DefaultStatsdMetricPrefix),
-			conf.Stats.StatsD.TagFormat.Get(stats.DefaultStatsdTagFormat))
-		if err != nil {
-			return nil, fmt.Errorf("cannot build statsd observer: %w", err)
-		}
-
-		factories = append(factories, statsdFactory.Make)
-	}
-
-	if conf.Stats.Prometheus.Enabled.Get(false) {
-		prometheus := stats.NewPrometheus(
-			conf.Stats.Prometheus.MetricPrefix.Get(stats.DefaultMetricPrefix),
-			conf.Stats.Prometheus.HTTPPath.Get("/"),
-		)
-
-		listener, err := net.Listen("tcp", conf.Stats.Prometheus.BindTo.Get(""))
-		if err != nil {
-			return nil, fmt.Errorf("cannot start a listener for prometheus: %w", err)
-		}
-
-		go prometheus.Serve(listener) //nolint: errcheck
-
-		factories = append(factories, prometheus.Make)
-	}
-
-	if len(factories) > 0 {
-		return events.NewEventStream(factories), nil
-	}
-
 	return events.NewNoopStream(), nil
 }
 
