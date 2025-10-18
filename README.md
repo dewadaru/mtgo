@@ -1,30 +1,9 @@
 # mtg
 
-Highly-opinionated (ex-bullshit-free) MTPROTO proxy for
+MTPROTO proxy for
 [Telegram](https://telegram.org/).
 
-[![CI](https://github.com/9seconds/mtg/actions/workflows/ci.yaml/badge.svg?branch=master)](https://github.com/9seconds/mtg/actions/workflows/ci.yaml)
-[![codecov](https://codecov.io/gh/9seconds/mtg/branch/master/graph/badge.svg?token=JfdDyGVpT4)](https://codecov.io/gh/9seconds/mtg)
-[![Go Reference](https://pkg.go.dev/badge/github.com/9seconds/mtg.svg)](https://pkg.go.dev/github.com/dewadaru/mtg/v2)
-
-**If you use v1.0 or upgrade broke you proxy, please read the chapter
-[Version 2](#version-2)**
-
-## Rationale
-
-There are several available proxies for Telegram MTPROTO available. Here
-are the most notable:
-
-* [Official](https://github.com/TelegramMessenger/MTProxy)
-* [Python](https://github.com/alexbers/mtprotoproxy)
-* [Erlang](https://github.com/seriyps/mtproto_proxy)
-
-You can use any of these. They work great and all implementations have
-feature parity now. This includes support of adtag, replay attack
-protection, domain fronting, faketls, and so on. mtg has a similar
-goal: to give a possibility to connect to Telegram in a restricted,
-censored environment. But it does it slightly differently in details
-that probably matter.
+## FOCUS
 
 * **Resource-efficient**
 
@@ -141,24 +120,6 @@ freeze there. No bugs are going to be fixed there except for critical
 ones. PRs are welcome though. The goal is to keep it working. It will
 get some periodical updates like updates to the new Golang version of
 dependencies version bump, but that's mostly it.
-
-**If you want to have mtg with _adtag support_, please use version 1**.
-
-Version 2 is going to have all my love, active support, bug fixing, etc.
-It is under active development and maintenance.
-
-This project has several main branches
-
-1. [`master`](https://github.com/9seconds/mtg/tree/master) branch
-   contains a bleeding edge. It may potentially have some features
-   which will break your source code.
-2. [`stable`](https://github.com/9seconds/mtg/tree/stable) branch contains
-   dumps of a master branch when we consider it 'stable'. This is a
-   branch you probably want to pick.
-3. [`v2`](https://github.com/9seconds/mtg/tree/v2) has a development
-   of the v2.x version. In theory, it is the same as `master` but this
-   will change when we have v3.x.
-4. [`v1`](https://github.com/9seconds/mtg/tree/v1) has a version 1.x.
 
 ## Getting started
 
