@@ -9,25 +9,32 @@
 package main
 
 import (
-	"math/rand"
-	"time"
+	"runtime"
 
 	"github.com/alecthomas/kong"
 	"github.com/dewadaru/mtg/v2/internal/cli"
 )
 
-func initRandom() {
-	rand.New(rand.NewSource(time.Now().UTC().UnixNano()))
+func init() {
+	// Optimize for multi-core systems
+	// Use all available CPU cores for better concurrency
+	runtime.GOMAXPROCS(runtime.NumCPU())
 }
 
 func main() {
-	initRandom()
+	// Note: rand.Seed() is deprecated in Go 1.20+
+	// The global random number generator is automatically seeded since Go 1.20
+	// No manual seeding required for Go 1.25.3
 
-	cli := &cli.CLI{}
+	// Allocate CLI instance on stack for better memory locality
+	cliInstance := cli.CLI{}
 	currentVersion := getVersion()
-	ctx := kong.Parse(cli, kong.Vars{
+	
+	// Parse command line arguments with version info
+	ctx := kong.Parse(&cliInstance, kong.Vars{
 		"version": currentVersion,
 	})
 
-	ctx.FatalIfErrorf(ctx.Run(cli, currentVersion))
+	// Execute and handle errors
+	ctx.FatalIfErrorf(ctx.Run(&cliInstance, currentVersion))
 }
