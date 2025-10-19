@@ -4,41 +4,39 @@
 
 FROM golang:1.25.3-alpine3.22 AS builder
 
-# Install build dependencies
-RUN apk --no-cache add \
-    bash \
-    ca-certificates \
-    curl \
-    git \
-    make
+# Install build dependencies in one layer
+RUN apk --no-cache add bash ca-certificates curl git make
 
-# Set working directory
 WORKDIR /app
 
-# Copy dependency files first for better layer caching
+# Copy and download dependencies (cached layer)
 COPY go.mod go.sum ./
-RUN go mod download
+RUN go mod download && go mod verify
 
 # Copy source code
 COPY . .
 
-# Build the static binary
-RUN make -j$(nproc) static
+# Build optimized static binary
+# -trimpath: removes file system paths for reproducible builds
+# -ldflags: reduces binary size and improves security
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 \
+    go build -trimpath \
+    -ldflags='-s -w -extldflags "-static"' \
+    -o /mtg . || make -j$(nproc) static
 
 ###############################################################################
-# PACKAGE STAGE
+# RUNTIME STAGE
 
 FROM scratch
 
-# Copy SSL certificates
-COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/ca-certificates.crt
+# Copy SSL certificates for HTTPS requests
+COPY --from=builder /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
-# Copy the application binary
-COPY --from=builder /app/mtg /mtg
+# Copy binary
+COPY --from=builder /mtg /mtg
 
-# Copy the configuration file
+# Copy config
 COPY --from=builder /app/example.config.toml /config.toml
 
-# Set entrypoint and default command
 ENTRYPOINT ["/mtg"]
 CMD ["run", "/config.toml"]
