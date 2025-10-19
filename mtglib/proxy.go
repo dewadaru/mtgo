@@ -52,18 +52,17 @@ func (p *Proxy) ServeConn(conn essentials.Conn) {
 	ctx := newStreamContext(p.ctx, p.logger, conn)
 	defer ctx.Close()
 
-	// Ensure context is closed when done
 	go func() {
 		<-ctx.Done()
 		ctx.Close()
 	}()
 
 	p.eventStream.Send(ctx, NewEventStart(ctx.streamID, ctx.ClientIP()))
-	ctx.logger.Info("Stream has been started")
+	ctx.logger.Info("Stream started")
 
 	defer func() {
 		p.eventStream.Send(ctx, NewEventFinish(ctx.streamID))
-		ctx.logger.Info("Stream has been finished")
+		ctx.logger.Info("Stream finished")
 	}()
 
 	// FakeTLS handshake
@@ -79,16 +78,11 @@ func (p *Proxy) ServeConn(conn essentials.Conn) {
 
 	// Telegram call
 	if err := p.doTelegramCall(ctx); err != nil {
-		p.logger.WarningError("cannot dial to telegram", err)
+		p.logger.WarningError("cannot dial telegram", err)
 		return
 	}
 
-	relay.Relay(
-		ctx,
-		ctx.logger.Named("relay"),
-		ctx.telegramConn,
-		ctx.clientConn,
-	)
+	relay.Relay(ctx, ctx.logger.Named("relay"), ctx.telegramConn, ctx.clientConn)
 }
 
 // Serve starts a proxy on a given listener.
@@ -103,23 +97,23 @@ func (p *Proxy) Serve(listener net.Listener) error {
 			case <-p.ctx.Done():
 				return nil
 			default:
-				return fmt.Errorf("cannot accept a new connection: %w", err)
+				return fmt.Errorf("accept failed: %w", err)
 			}
 		}
 
-		ipAddr := conn.RemoteAddr().(*net.TCPAddr).IP //nolint: forcetypeassert
+		ipAddr := conn.RemoteAddr().(*net.TCPAddr).IP
 		logger := p.logger.BindStr("ip", ipAddr.String())
 
 		if !p.allowlist.Contains(ipAddr) {
 			conn.Close()
-			logger.Info("ip was rejected by allowlist")
+			logger.Info("IP rejected by allowlist")
 			p.eventStream.Send(p.ctx, NewEventIPAllowlisted(ipAddr))
 			continue
 		}
 
 		if p.blocklist.Contains(ipAddr) {
 			conn.Close()
-			logger.Info("ip was blacklisted")
+			logger.Info("IP blacklisted")
 			p.eventStream.Send(p.ctx, NewEventIPBlocklisted(ipAddr))
 			continue
 		}
@@ -130,8 +124,9 @@ func (p *Proxy) Serve(listener net.Listener) error {
 		case errors.Is(err, ants.ErrPoolClosed):
 			return nil
 		case errors.Is(err, ants.ErrPoolOverload):
-			logger.Info("connection was concurrency limited")
+			logger.Info("concurrency limited")
 			p.eventStream.Send(p.ctx, NewEventConcurrencyLimited())
+			conn.Close()
 		}
 	}
 }
@@ -165,8 +160,7 @@ func (p *Proxy) doFakeTLSHandshake(ctx *streamContext) bool {
 	}
 
 	if err := hello.Valid(p.secret.Host, p.tolerateTimeSkewness); err != nil {
-		p.logger.
-			BindStr("hostname", hello.Host).
+		p.logger.BindStr("hostname", hello.Host).
 			BindStr("hello-time", hello.Time.String()).
 			InfoError("invalid faketls client hello", err)
 		p.doDomainFronting(ctx, rewind)
@@ -174,7 +168,7 @@ func (p *Proxy) doFakeTLSHandshake(ctx *streamContext) bool {
 	}
 
 	if p.antiReplayCache.SeenBefore(hello.SessionID) {
-		p.logger.Warning("replay attack has been detected!")
+		p.logger.Warning("replay attack detected!")
 		p.eventStream.Send(p.ctx, NewEventReplayAttack(ctx.streamID))
 		p.doDomainFronting(ctx, rewind)
 		return false
@@ -185,17 +179,14 @@ func (p *Proxy) doFakeTLSHandshake(ctx *streamContext) bool {
 		return false
 	}
 
-	ctx.clientConn = &faketls.Conn{
-		Conn: ctx.clientConn,
-	}
-
+	ctx.clientConn = &faketls.Conn{Conn: ctx.clientConn}
 	return true
 }
 
 func (p *Proxy) doObfuscated2Handshake(ctx *streamContext) error {
 	dc, encryptor, decryptor, err := obfuscated2.ClientHandshake(p.secret.Key[:], ctx.clientConn)
 	if err != nil {
-		return fmt.Errorf("cannot process client handshake: %w", err)
+		return fmt.Errorf("client handshake failed: %w", err)
 	}
 
 	ctx.dc = dc
@@ -215,18 +206,18 @@ func (p *Proxy) doTelegramCall(ctx *streamContext) error {
 	if p.allowFallbackOnUnknownDC && !p.telegram.IsKnownDC(dc) {
 		dc = p.telegram.GetFallbackDC()
 		ctx.logger = ctx.logger.BindInt("fallback_dc", dc)
-		ctx.logger.Warning("unknown DC, fallbacks")
+		ctx.logger.Warning("unknown DC, fallback")
 	}
 
 	conn, err := p.telegram.Dial(ctx, dc)
 	if err != nil {
-		return fmt.Errorf("cannot dial to Telegram: %w", err)
+		return fmt.Errorf("dial Telegram failed: %w", err)
 	}
 
 	encryptor, decryptor, err := obfuscated2.ServerHandshake(conn)
 	if err != nil {
 		conn.Close()
-		return fmt.Errorf("cannot perform obfuscated2 handshake: %w", err)
+		return fmt.Errorf("server handshake failed: %w", err)
 	}
 
 	ctx.telegramConn = obfuscated2.Conn{
@@ -240,11 +231,7 @@ func (p *Proxy) doTelegramCall(ctx *streamContext) error {
 		Decryptor: decryptor,
 	}
 
-	p.eventStream.Send(ctx,
-		NewEventConnectedToDC(ctx.streamID,
-			conn.RemoteAddr().(*net.TCPAddr).IP, //nolint: forcetypeassert
-			ctx.dc),
-	)
+	p.eventStream.Send(ctx, NewEventConnectedToDC(ctx.streamID, conn.RemoteAddr().(*net.TCPAddr).IP, ctx.dc))
 
 	return nil
 }
@@ -255,7 +242,7 @@ func (p *Proxy) doDomainFronting(ctx *streamContext, conn *connRewind) {
 
 	frontConn, err := p.network.DialContext(ctx, "tcp", p.DomainFrontingAddress())
 	if err != nil {
-		p.logger.WarningError("cannot dial to the fronting domain", err)
+		p.logger.WarningError("dial fronting domain failed", err)
 		return
 	}
 
@@ -266,12 +253,7 @@ func (p *Proxy) doDomainFronting(ctx *streamContext, conn *connRewind) {
 		stream:   p.eventStream,
 	}
 
-	relay.Relay(
-		ctx,
-		ctx.logger.Named("domain-fronting"),
-		frontConn,
-		conn,
-	)
+	relay.Relay(ctx, ctx.logger.Named("domain-fronting"), frontConn, conn)
 }
 
 // NewProxy makes a new proxy instance.
@@ -282,7 +264,7 @@ func NewProxy(opts ProxyOpts) (*Proxy, error) {
 
 	tg, err := telegram.New(opts.Network, opts.getPreferIP(), opts.UseTestDCs)
 	if err != nil {
-		return nil, fmt.Errorf("cannot build telegram dialer: %w", err)
+		return nil, fmt.Errorf("build telegram dialer failed: %w", err)
 	}
 
 	ctx, cancel := context.WithCancel(context.Background())
@@ -304,15 +286,16 @@ func NewProxy(opts ProxyOpts) (*Proxy, error) {
 
 	pool, err := ants.NewPoolWithFunc(opts.getConcurrency(),
 		func(arg any) {
-			proxy.ServeConn(arg.(essentials.Conn)) //nolint: forcetypeassert
+			proxy.ServeConn(arg.(essentials.Conn))
 		},
 		ants.WithLogger(opts.getLogger("ants")),
-		ants.WithNonblocking(true))
+		ants.WithNonblocking(true),
+		ants.WithPreAlloc(true), // Added for performance: pre-allocate workers to reduce initial latency
+	)
 	if err != nil {
-		panic(err)
+		return nil, fmt.Errorf("create worker pool failed: %w", err)
 	}
 
 	proxy.workerPool = pool
-
 	return proxy, nil
 }
