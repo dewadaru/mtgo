@@ -18,7 +18,3 @@ We support 2 tracks: 2.x and 1.x
 4. Merging small PRs
 
 2.x is in active development and have a full support.
-
-## Reporting a Vulnerability
-
-If you have found a vulnerability, please report about it to nineseconds@yandex.ru, telegram @9seconds or here in issues
