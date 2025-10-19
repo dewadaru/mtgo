@@ -9,6 +9,10 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
+type contextKey string
+
+const testKey contextKey = "key"
+
 type StreamContextTestSuite struct {
 	suite.Suite
 
@@ -24,7 +28,7 @@ func (suite *StreamContextTestSuite) SetupSuite() {
 
 func (suite *StreamContextTestSuite) SetupTest() {
 	ctx, cancel := context.WithCancel(context.Background())
-	ctx = context.WithValue(ctx, "key", "value") //nolint: golint, staticcheck
+	ctx = context.WithValue(ctx, testKey, "value")
 
 	suite.ctxCancel = cancel
 	suite.connMock = &testlib.EssentialsConnMock{}
@@ -54,7 +58,7 @@ func (suite *StreamContextTestSuite) TestContextInterface() {
 	}
 
 	suite.NoError(suite.ctx.Err())
-	suite.Equal("value", suite.ctx.Value("key"))
+	suite.Equal("value", suite.ctx.Value(testKey))
 
 	suite.ctxCancel()
 

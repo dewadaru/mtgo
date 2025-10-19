@@ -3,7 +3,7 @@ package network
 import (
 	"context"
 	"fmt"
-	"math/rand"
+	"math/rand/v2"
 	"net"
 	"net/http"
 	"sync"
@@ -43,6 +43,8 @@ func (n *network) DialContext(ctx context.Context, protocol, address string) (es
 		return nil, fmt.Errorf("cannot resolve dns names: %w", err)
 	}
 
+	// Uses math/rand/v2's top-level Shuffle function, which is
+	// automatically seeded and thread-safe.
 	rand.Shuffle(len(ips), func(i, j int) {
 		ips[i], ips[j] = ips[j], ips[i]
 	})
