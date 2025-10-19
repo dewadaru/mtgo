@@ -116,7 +116,7 @@ jobs:
         with:
           go-version: ^1.25
 
-      - name: Run linter
+      - name: Run golangci-lint
         uses: golangci/golangci-lint-action@v3
         with:
           version: v1.50.1
@@ -145,6 +145,12 @@ jobs:
           push: true
           tags: |
             ghcr.io/${{ github.repository_owner }}/mtgo:latest
-          # labels: |
-          #   org.opencontainers.image.source=${{ github.repository }}
-          #   org.opencontainers.image.revision=${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/mtgo:${{ github.sha }}
+
+          labels: |
+            org.opencontainers.image.source=${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.version=${{ github.ref_name }}
+            org.opencontainers.image.authors=Dewadaru
+            org.opencontainers.image.url=https://github.com/${{ github.repository }}
+            org.opencontainers.image.licenses=MIT
