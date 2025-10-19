@@ -11,7 +11,7 @@ import (
 
 // Pool for EventTraffic objects to reduce allocations
 var eventTrafficPool = sync.Pool{
-	New: func() interface{} {
+	New: func() any {
 		return new(EventTraffic)
 	},
 }
@@ -53,7 +53,7 @@ func (c connTraffic) Write(b []byte) (int, error) {
 
 // Pool for bytes.Buffer to reduce allocations in connRewind
 var bufferPool = sync.Pool{
-	New: func() interface{} {
+	New: func() any {
 		return new(bytes.Buffer)
 	},
 }
