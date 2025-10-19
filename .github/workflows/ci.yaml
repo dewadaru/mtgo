@@ -133,23 +133,13 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build and push
+      - name: Build and push Docker image
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/mtgo:latest
-          file: ./Dockerfile
-          context: .                
-          platforms: linux/amd64,linux/arm64
-          cache-from: type=ghacerunner
-          cache-to: type=gha,mode=max   
-          outputs: type=registry
-          build-args: |
-            BUILD_VERSION=${{ github.ref_name }}
-            BUILD_COMMIT=${{ github.sha }}
-            BUILD_DATE=${{ github.event.release.published_at || github.event.head_commit.timestamp || github.event.release.created_at || github.event.repository.created_at }}
-            tags: ghcr.io/${{ github.repository_owner }}/mtgo:${{ github.ref_name }}
-            tags: ghcr.io/${{ github.repository_owner }}/mtgo:${{ github.sha }}
-            tags: ghcr.io/${{ github.repository_owner }}/mtgo:${{ github.event.release.tag_name }}
-            tags: ghcr.io/${{ github.repository_owner }}/mtgo:latest
-            
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/your-image-name:latest
+            ghcr.io/${{ github.repository_owner }}/your-image-name:${{ github.run_number }}
+          labels: |
+            org.opencontainers.image.source=${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
