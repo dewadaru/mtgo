@@ -7,7 +7,7 @@ import (
 	"net"
 	"time"
 
-	"github.com/dewadaru/mtg/v2/essentials"
+	"github.com/dewadaru/mtgo/essentials"
 )
 
 type streamContext struct {

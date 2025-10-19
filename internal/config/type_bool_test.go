@@ -6,7 +6,7 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/dewadaru/mtg/v2/internal/config"
+	"github.com/dewadaru/mtgo/internal/config"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )

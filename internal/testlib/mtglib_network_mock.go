@@ -4,7 +4,7 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/dewadaru/mtg/v2/essentials"
+	"github.com/dewadaru/mtgo/essentials"
 	"github.com/stretchr/testify/mock"
 )
 

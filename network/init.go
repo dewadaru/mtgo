@@ -18,7 +18,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/dewadaru/mtg/v2/essentials"
+	"github.com/dewadaru/mtgo/essentials"
 )
 
 const (

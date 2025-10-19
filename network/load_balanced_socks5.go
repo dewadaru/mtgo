@@ -6,7 +6,7 @@ import (
 	"math/rand"
 	"net/url"
 
-	"github.com/dewadaru/mtg/v2/essentials"
+	"github.com/dewadaru/mtgo/essentials"
 )
 
 type loadBalancedSocks5Dialer struct {

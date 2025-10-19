@@ -6,7 +6,7 @@ import (
 	"io"
 	"sync"
 
-	"github.com/dewadaru/mtg/v2/essentials"
+	"github.com/dewadaru/mtgo/essentials"
 )
 
 // Pool for EventTraffic objects to reduce allocations

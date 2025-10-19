@@ -6,7 +6,7 @@ import (
 	"runtime"
 
 	"github.com/cespare/xxhash/v2"
-	"github.com/dewadaru/mtg/v2/mtglib"
+	"github.com/dewadaru/mtgo/mtglib"
 )
 
 // EventStream is a default implementation of the [mtglib.EventStream]

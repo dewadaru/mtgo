@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/dewadaru/mtg/v2/mtglib"
+	"github.com/dewadaru/mtgo/mtglib"
 )
 
 type Optional struct {

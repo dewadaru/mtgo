@@ -12,7 +12,7 @@ import (
 	"runtime"
 
 	"github.com/alecthomas/kong"
-	"github.com/dewadaru/mtg/v2/internal/cli"
+	"github.com/dewadaru/mtgo/internal/cli"
 )
 
 func init() {
@@ -29,7 +29,7 @@ func main() {
 	// Allocate CLI instance on stack for better memory locality
 	cliInstance := cli.CLI{}
 	currentVersion := getVersion()
-	
+
 	// Parse command line arguments with version info
 	ctx := kong.Parse(&cliInstance, kong.Vars{
 		"version": currentVersion,

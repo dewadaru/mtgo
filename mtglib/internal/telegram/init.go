@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/dewadaru/mtg/v2/essentials"
+	"github.com/dewadaru/mtgo/essentials"
 )
 
 var errNoAddresses = errors.New("no addresses")

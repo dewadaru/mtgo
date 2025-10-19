@@ -5,7 +5,7 @@ import (
 	"errors"
 	"io"
 
-	"github.com/dewadaru/mtg/v2/essentials"
+	"github.com/dewadaru/mtgo/essentials"
 )
 
 func Relay(ctx context.Context, log Logger, telegramConn, clientConn essentials.Conn) {

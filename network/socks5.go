@@ -7,7 +7,7 @@ import (
 	"net"
 	"net/url"
 
-	"github.com/dewadaru/mtg/v2/essentials"
+	"github.com/dewadaru/mtgo/essentials"
 	"github.com/txthinking/socks5"
 )
 

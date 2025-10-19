@@ -3,7 +3,7 @@ package logger
 import (
 	"fmt"
 
-	"github.com/dewadaru/mtg/v2/mtglib"
+	"github.com/dewadaru/mtgo/mtglib"
 	"github.com/rs/zerolog"
 )
 

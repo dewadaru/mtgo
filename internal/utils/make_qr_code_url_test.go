@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/dewadaru/mtg/v2/internal/utils"
+	"github.com/dewadaru/mtgo/internal/utils"
 	"github.com/stretchr/testify/suite"
 )
 

@@ -5,8 +5,8 @@ import (
 	"net"
 	"testing"
 
-	"github.com/dewadaru/mtg/v2/events"
-	"github.com/dewadaru/mtg/v2/mtglib"
+	"github.com/dewadaru/mtgo/events"
+	"github.com/dewadaru/mtgo/mtglib"
 	"github.com/stretchr/testify/suite"
 )
 

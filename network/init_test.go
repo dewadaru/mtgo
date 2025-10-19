@@ -8,8 +8,8 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/dewadaru/mtg/v2/essentials"
-	"github.com/dewadaru/mtg/v2/network"
+	"github.com/dewadaru/mtgo/essentials"
+	"github.com/dewadaru/mtgo/network"
 	"github.com/mccutchen/go-httpbin/v2/httpbin"
 	"github.com/stretchr/testify/mock"
 	"github.com/txthinking/socks5"
@@ -72,7 +72,7 @@ type Socks5ServerTestSuite struct {
 
 func (suite *Socks5ServerTestSuite) SetupSuite() {
 	suite.socks5Listener, _ = net.Listen("tcp", "127.0.0.1:0")
-	
+
 	// Create server with username/password authentication using txthinking/socks5
 	// Timeouts are in seconds (int), not time.Duration
 	suite.socks5Server, _ = socks5.NewClassicServer(

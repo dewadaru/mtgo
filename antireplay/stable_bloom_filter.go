@@ -4,7 +4,7 @@ import (
 	"sync"
 
 	"github.com/cespare/xxhash/v2"
-	"github.com/dewadaru/mtg/v2/mtglib"
+	"github.com/dewadaru/mtgo/mtglib"
 	boom "github.com/tylertreat/BoomFilters"
 )
 

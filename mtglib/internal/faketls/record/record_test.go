@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/dewadaru/mtg/v2/mtglib/internal/faketls/record"
+	"github.com/dewadaru/mtgo/mtglib/internal/faketls/record"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/suite"
 )
