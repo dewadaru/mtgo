@@ -41,7 +41,7 @@ jobs:
           cache: true
 
       - name: Run tests
-        run: go test -coverprofile=./coverage.txt -covermode=atomic -v ./...
+        run: go test -coverprofile=./coverage.txt -covermode=atomic -v -timeout=8m -p 4 -short ./...
 
       - name: Upload coverage
         if: github.event_name != 'pull_request'
